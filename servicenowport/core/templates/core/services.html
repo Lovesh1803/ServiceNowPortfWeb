@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% load static %} {% block title %}Features{% endblock %} {% block extra_css %}
+<style>
+  /* “Features” badge in About page */
+  .badge-section {
+    background-color: #82d562 !important;
+    color: #000 !important;
+  }
+  /* small green badge above heading */
+  .badge-section {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* each feature card */
+  .feature-card {
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  /* icon wrapper */
+  .feature-icon {
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    background-color: rgba(40, 167, 69, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .feature-icon .bi {
+    color: #82d562;
+    font-size: 1.5rem;
+  }
+</style>
+{% endblock %} {% block content %}
+<section id="features" class="py-5 bg-light">
+  <div class="container text-center mb-5">
+    <span class="badge bg-success badge-section">Features</span>
+    <h2 class="mt-2">Discover the Tools that Drive Success</h2>
+    <p class="text-muted">
+      Unleash innovation and accelerate growth with our dynamic product.
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      {% comment %} Repeat this col-block 8 times or loop over a context list 
+      {% endcomment %} {% for i in "12345678" %}
+      <div class="col">
+        <div class="card feature-card h-100 p-4">
+          <div class="d-flex">
+            <div class="feature-icon me-3">
+              <i class="bi bi-window-stack"></i>
+            </div>
+            <div>
+              <h5 class="fw-bold mb-2">Service Portal</h5>
+              <p class="mb-0 text-muted">
+                Create a mobile-ready interface that lets users tap into key Now
+                Platform capabilities. Service Portal delivers tailored,
+                on-the-go access exactly when they need it.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

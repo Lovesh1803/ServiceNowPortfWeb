@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+
+{% block extra_css %}
+<style>
+  /* Override the default bg-success entirely */
+.badge.bg-success,.btn.btn-success {
+  background-color: #82d562 !important;
+  color: #000;           /* or #fff depending on contrast you prefer */
+  border: 0;
+}
+
+  .img-blog-thumb {
+    width: calc(100% - 2rem);
+    height: 200px;         
+    object-fit: cover;     
+    margin: 1rem;
+  }
+  .carousel-nav-btn {
+  cursor: pointer;
+  border: 0;
+  transition: background-color .2s, color .2s, border-color .2s;
+}
+
+.carousel-nav-btn:hover,
+.carousel-nav-btn:focus {
+  background-color:  #82D562 !important;  
+  border-color:  #82D562 !important;      
+  color: #fff !important;                
+}
+
+.carousel-nav-btn:hover i,
+.carousel-nav-btn:focus i {
+  color: #fff !important;                
+}
+
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section id="hero" class="py-5 text-center bg-light">
+  <div class="container">
+    <h1 class="display-5 fw-bold">
+      Level-up your Tech Game with Real-world Guidance
+    </h1>
+    <p class="small text-muted mb-4">
+      Learn ServiceNow, .NET, Salesforce & beyond through hands-on lessons, snippets, and pro tips—all in one hub.
+    </p>
+    <a href="{% url 'sign_up' %}" class="btn btn-dark btn-pill px-5 py-2 mb-5">
+      Signup
+    </a>
+
+    <!-- Hero Image -->
+    <div class="mx-auto" style="max-width:800px;">
+      <img
+        src="{% static 'images/hero.png' %}"
+        alt="Hero Illustration"
+        class="img-fluid rounded-pill"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- Stats Panel -->
+<section id="stats" class="py-5 bg-light">
+  <div class="container">
+    <div class="bg-white shadow-sm rounded-pill d-flex justify-content-center align-items-center py-4 px-3">
+      <div class="row text-center w-100 gx-4">
+        <div class="col">
+          <h2 class="fw-bold mb-1">236</h2>
+          <p class="mb-0 text-muted">Projects</p>
+        </div>
+        <div class="col">
+          <h2 class="fw-bold mb-1">15,340</h2>
+          <p class="mb-0 text-muted">Worked Hours</p>
+        </div>
+        <div class="col">
+          <h2 class="fw-bold mb-1">25</h2>
+          <p class="mb-0 text-muted">Employees</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section id="features" class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="badge bg-success badge-section">Features</span>
+      <h2 class="mt-2">
+        Boost your IT expertise with our hands-on guidance and grow your confidence
+      </h2>
+      <p class="text-muted small">
+        We partner with leading organizations to implement, develop, customize, and support ITSM, ITOM, and Service Portal solutions—plus we publish concise learning videos on key topics for quick, future reference.
+      </p>
+    </div>
+
+    <div class="row gy-4">
+      {% for feature in features %}
+        <div class="col-12">
+          <div class="card h-100 shadow-sm border-0">
+            <div class="row g-0 align-items-center">
+              {% if forloop.counter|divisibleby:"2" %}
+                <!-- Even: image left, text right -->
+                <div class="col-md-6 d-flex align-items-center justify-content-center p-4">
+                  <img 
+                    src="{% static feature.image %}" 
+                    class="img-fluid" 
+                    alt="{{ feature.title }}" 
+                  />
+                </div>
+                <div class="col-md-6 p-4">
+                  <h5>{{ feature.title }}</h5>
+                  <p class="text-muted">{{ feature.description }}</p>
+                  <a href="{{ feature.link }}" class="btn btn-outline-success btn-sm">
+                    See more
+                  </a>
+                </div>
+              {% else %}
+                <!-- Odd: text left, image right -->
+                <div class="col-md-6 p-4">
+                  <h5>{{ feature.title }}</h5>
+                  <p class="text-muted">{{ feature.description }}</p>
+                  <a href="{{ feature.link }}" class="btn btn-outline-success btn-sm">
+                    See more
+                  </a>
+                </div>
+                <div class="col-md-6 d-flex align-items-center justify-content-center p-4">
+                  <img 
+                    src="{% static feature.image %}" 
+                    class="img-fluid" 
+                    alt="{{ feature.title }}" 
+                  />
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Latest Blogs -->
+<section id="blogs" class="py-5 bg-light">
+  <div class="container text-center mb-4">
+    <span class="badge bg-success badge-section">Blogs</span>
+    <h2 class="mt-2">From our Latest Blogs</h2>
+  </div>
+  <div class="container">
+    <div class="row gy-4">
+      {% for blog in latest_blogs %}
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+           {% if blog.image %}
+    <img
+      src="{{ blog.image.url }}"
+      class="card-img-top img-blog-thumb"
+      alt="{{ blog.title }}"
+    >
+  {% else %}
+    <img
+      src="{% static 'images/placeholder.png' %}"
+      class="card-img-top img-blog-thumb"
+      alt="No image available"
+    >
+  {% endif %}
+          <div class="card-body">
+            <span class="badge bg-primary mb-2">{{ blog.category.name }}</span>
+            <h5 class="card-title">{{ blog.title }}</h5>
+            <p class="card-text text-muted">{{ blog.excerpt }}</p>
+            <a href="{% url 'blog:detail' blog.slug %}"
+               class="stretched-link text-decoration-none small">
+              Read more →
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="text-center mt-4">
+      <a href="{% url 'home' %}" class="btn btn-success px-4">Contact Us</a>
+      <a href="{% url 'blog:list' %}" class="btn btn-outline-secondary px-4">View All &gt;</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- Testimonials Carousel -->
+<section id="testimonials" class="py-5 bg-light">
+  <div class="container text-center mb-4">
+    <span class="badge bg-success badge-section">Testimonials</span>
+    <h2 class="mt-2">Customer’s Feedback</h2>
+  </div>
+  <div class="carousel-container">
+    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        {% for t in testimonials %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <div class="card mx-auto" style="max-width:800px;">
+            <div class="row g-0 align-items-center">
+              <div class="col-md-4 text-center p-4">
+                {% if t.image %}
+    <img src="{{ t.image.url }}" class="img-fluid rounded-circle" style="width:200px;height:200px" alt="{{ t.name }}" />
+  {% else %}
+    <img
+      src="{% static 'images/testimonial_placeholder.png' %}"
+      class="img-fluid rounded-circle"
+      alt="No image available"
+      style="width:200px;height:200px"
+    >
+  {% endif %}
+                
+              </div>
+              <div class="col-md-8 p-4">
+                <p class="fst-italic">“{{ t.content }}”</p>
+                <p class="fw-bold mb-0">{{ t.name }}</p>
+                <small class="text-muted">{{ t.designation }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <button class="carousel-nav-btn carousel-nav-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button class="carousel-nav-btn carousel-nav-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

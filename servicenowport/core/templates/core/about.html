@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About Us{% endblock title %}
+
+{% block extra_css %}
+<style>
+  /* Hero container */
+  #about-hero {
+    background-color: #0f274c;
+    overflow: hidden;
+    border-radius: 1rem;
+    position: relative;
+  }
+
+  /* Pattern dots top-right */
+  .pattern-dots {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 400px;
+    opacity: .3;
+    transform: translate(50px, -50px);
+  }
+
+  /* White text panel (left) with only right corners rounded */
+  .about-panel {
+    background: #fff;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 3rem;
+  }
+
+  /* Ensure image covers the right half */
+  #about-hero .col-image {
+    padding: 0;
+  }
+  #about-hero .col-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* “Features” badge in About page */
+  .badge-section {
+    background-color: #82d562 !important;
+    color: #000 !important;
+  }
+  /* The features grid card */
+  #why-choose .card {
+    border-radius: 1rem;
+  }
+  /* Separators between feature columns */
+  .feature-col {
+    border-right: 1px solid #dee2e6;
+  }
+  .feature-col:last-child,
+  .feature-col:nth-child(3),
+  .feature-col:nth-child(6) {
+    border-right: none;
+  }
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+
+<!-- About Hero -->
+<section id="about-hero" class="py-5">
+  <img src="{% static 'images/pattern-dots.png' %}" alt="" class="pattern-dots" />
+
+  <div class="container">
+    <div class="row g-0 align-items-center">
+      <!-- Text panel -->
+      <div class="col-md-6">
+        <div class="about-panel shadow">
+          <small class="text-black-50">Welcome to Service Now</small>
+          <h2 class="mt-2 text-black">About us</h2>
+          <p class="text-white-75">
+            We’re dedicated to providing top-notch IT training, helping professionals and enthusiasts alike enhance their skills in ServiceNow, .NET, Salesforce, and WordPress.
+          </p>
+          <p class="mb-0 text-white-75">
+            <strong>Our Mission:</strong><br>
+            Deliver accessible, high-quality training that bridges the gap between learning and real-world application.
+          </p>
+        </div>
+      </div>
+
+      <!-- Image -->
+      <div class="col-md-6 col-image">
+        <img src="{% static 'images/about.png' %}" alt="About us" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Choose Us -->
+<section id="why-choose" class="py-5 bg-light">
+  <div class="container text-center mb-5">
+    <span class="badge badge-section">Features</span>
+    <h2 class="mt-2">Why Choose Us</h2>
+    <p class="text-muted">
+      Unleash innovation and accelerate growth with our dynamic product.
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="card p-4 shadow-sm">
+      <div class="row text-center gy-4">
+        {% for feature in features_list %}
+        <div class="col-md-4 feature-col">
+          <i class="bi {{ feature.icon }} text-success fs-2 mb-2"></i>
+          <h5>{{ feature.title }}</h5>
+          <p class="text-muted small">{{ feature.desc }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

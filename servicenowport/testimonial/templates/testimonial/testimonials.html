@@ -1,0 +1,65 @@
+{% extends "base.html" %} {% block title %}Testimonials{% endblock %} 
+{% block extra_css %}
+<style>
+  /* “Features” badge in Testimonial page */
+  .badge-section,
+  .btn-success {
+    background-color: #82d562 !important;
+    color: #000 !important;
+  }
+  /* small green badge */
+  .badge-section {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  /* pill button */
+  .btn-pill {
+    border-radius: 50px;
+    padding: 0.375rem 1.5rem;
+  }
+</style>
+{% endblock %} 
+{% block content %}
+<section id="testimonials" class="py-5 bg-light">
+  <div class="container text-center mb-5">
+    <span class="badge bg-success badge-section">Testimonials</span>
+    <h2 class="mt-3">1M+ Global Customers</h2>
+  </div>
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      {% for t in testimonials %}
+      <div class="col">
+        <div class="card h-100 p-4 border-0 shadow-sm">
+          <div class="d-flex mb-3">
+            {% if t.image %}
+            <img
+              src="{{ t.image.url }}"
+              alt="{{ t.name }}"
+              class="rounded-circle me-3"
+              style="width: 60px; height: 60px"
+            />
+            {% endif %}
+            <div>
+              <h5 class="mb-0">{{ t.name }}</h5>
+              <small class="text-muted">{{ t.designation }}</small>
+            </div>
+          </div>
+          <p class="text-muted small">{{ t.content }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% if testimonials.has_next %}
+    <div class="text-center mt-4">
+      <a
+        href="?page={{ blogs.next_page_number }}"
+        class="btn btn-success btn-pill"
+      >
+        Show More
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,8 @@
+.candidates_container{
+    padding: 1rem;
+}
+
+.candidates_container__filters { margin-bottom: 2rem; }
+.candidates_container__filter_input{ margin-right: 1rem; padding: 0.5rem;}
+.candidates_container__table{ width: "100%"; text-align: left; }
+.candidates_container__table_heading{ text-transform: capitalize; }
