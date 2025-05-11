@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.urls import reverse
 from .forms import CommentForm
 from django.core.paginator import Paginator
+from django.utils.text import slugify
+from bs4 import BeautifulSoup
 
 def blog_list(request):
     blogs = Blog.objects.all()
@@ -37,13 +39,30 @@ def blog_list(request):
 
     blogs = blogs.distinct()
 
-    # paginate: 5 per page
-    paginator = Paginator(blogs, 5)
-    page_number = request.GET.get('page', 1)
-    page_obj = paginator.get_page(page_number)
+    per_page = 6
+    # Safely parse page parameter
+    page_param = request.GET.get('page', '1')
+    try:
+        page = int(page_param)
+        if page < 1:
+            raise ValueError
+    except ValueError:
+        page = 1
+
+    # Calculate how many items to show
+    limit = per_page * page
+
+    limit_blogs     = blogs[:limit]
+
+    total_blogs = blogs.count()
+
+    has_next    = total_blogs > limit
+    next_page = page + 1
 
     return render(request, 'blog/blog_list.html', {
-        'blogs': page_obj,
+        'blogs': limit_blogs,
+        'has_next': has_next,
+        'next_page': next_page,
         'objectives': Objective.objects.all(),
         'products':   Product.objects.all(),
         'levels':     Level.objects.all(),
@@ -59,6 +78,24 @@ def blog_list(request):
 
 def blog_detail(request, slug):
     blog = get_object_or_404(Blog, slug=slug)
+
+    # --- Build Table of Contents ---
+    soup = BeautifulSoup(blog.content, 'html.parser')
+    toc = []
+    # look for h2 and h3 (you can extend to h4, etc.)
+    for header in soup.find_all(['h2','h3']):
+        text = header.get_text(strip=True)
+        # generate or reuse an id
+        hid = header.get('id') or slugify(text)
+        header['id'] = hid
+        toc.append({
+            'id':    hid,
+            'text':  text,
+            'level': int(header.name[1]),  # 2 for h2, 3 for h3
+        })
+    # overwrite content with anchors in place
+    blog.content = str(soup)
+
     comments = blog.comments.order_by('created_at')
     recent_posts = Blog.objects.order_by('-created_at')[:3]
     recent_comments = blog.comments.order_by('-created_at')[:3]
@@ -81,6 +118,7 @@ def blog_detail(request, slug):
 
     return render(request, 'blog/blog_detail.html', {
         'blog': blog,
+        'toc': toc,
         'comments': comments,
         'recent_posts': recent_posts,
         'recent_comments': recent_comments,

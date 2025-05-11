@@ -42,6 +42,19 @@
           </div>
         </form>
 
+        {% if toc %}
+        <nav class="mb-4">
+          <h5>On this page</h5>
+          <ul class="list-unstyled">
+            {% for item in toc %}
+              <li class="{% if item.level == 2 %}ps-2{% else %}ps-4{% endif %} mb-1">
+                <a href="#{{ item.id }}" class="text-decoration-none">{{ item.text }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </nav>
+        {% endif %}
+
         <!-- Content -->
         <div class="blog-content mb-5">
           {{ blog.content|safe }}

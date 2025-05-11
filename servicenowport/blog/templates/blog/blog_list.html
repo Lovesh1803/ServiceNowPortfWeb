@@ -67,11 +67,18 @@
           <!-- Objective dropdown -->
           <div class="filter-group mt-3">
             <label for="filterObjective">Objective</label>
-            <select id="filterObjective" name="objective" class="form-select" onchange="this.form.submit()">
+            <select
+              id="filterObjective"
+              name="objective"
+              class="form-select"
+              onchange="this.form.submit()"
+            >
               <option value="">Select</option>
               {% for obj in objectives %}
-                <option value="{{ obj.id }}"
-                  {% if obj.id|stringformat:"s" == selected_objective %}selected{% endif %}>
+                <option
+                  value="{{ obj.id }}"
+                  {% if obj.id|stringformat:"s" in selected_objectives %}selected{% endif %}
+                >
                   {{ obj.name }}
                 </option>
               {% endfor %}
@@ -82,15 +89,23 @@
           <!-- Skills select -->
           <div class="filter-group mt-3">
             <label for="filterSkill">Skills</label>
-            <select id="filterSkill" name="skill" class="form-select" onchange="this.form.submit()">
+            <select
+              id="filterSkill"
+              name="skill"
+              class="form-select"
+              onchange="this.form.submit()"
+            >
               <option value="">Select</option>
               {% for skill in skills %}
-                <option value="{{ skill.id }}"
-                  {% if skill.id|stringformat:"s" == selected_skill %}selected{% endif %}>
+                <option
+                  value="{{ skill.id }}"
+                  {% if skill.id|stringformat:"s" in selected_skills %}selected{% endif %}
+                >
                   {{ skill.name }}
                 </option>
               {% endfor %}
             </select>
+
           </div>
 
         </div>
@@ -142,18 +157,18 @@
             </div>
             {% endfor %}
           </div>
-          {% if blogs.has_next %}
-  <div class="text-center mt-4">
-    <a
-      href="?{% if selected_objective %}objective={{ selected_objective }}&{% endif %}
-             {% if selected_skill %}skill={{ selected_skill }}&{% endif %}
-             page={{ blogs.next_page_number }}"
-      class="btn btn-success"
-    >
-      Show More
-    </a>
-  </div>
-{% endif %}
+          {% if has_next %}
+            {% with query=request.GET.urlencode %}
+              <div class="text-center mt-4">
+                <a
+                  href="?{% if query %}{{ query }}&{% endif %}page={{ next_page }}"
+                  class="btn btn-success"
+                >
+                  Show More
+                </a>
+              </div>
+            {% endwith %}
+          {% endif %}
         </div>
       </main>
     </div>

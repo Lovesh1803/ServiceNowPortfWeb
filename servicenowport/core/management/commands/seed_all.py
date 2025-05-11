@@ -13,7 +13,7 @@ from blog.models import Objective, Skill, Role, Product
 User = get_user_model()
 
 class Command(BaseCommand):
-    help = "Seed database with sample data for Users, Categories, Objectives, Skills, Roles, Products, Blogs, Comments, and Testimonials"
+    help = "Seed database with sample data for Users, Categories, Objectives, Skills, Roles, Products, Blogs (with headings & code), Comments, and Testimonials"
 
     def handle(self, *args, **options):
         fake = Faker()
@@ -64,17 +64,40 @@ class Command(BaseCommand):
             p, _ = Product.objects.get_or_create(name=n)
             products.append(p)
 
-        # 4) Create blogs
-        self.stdout.write("Seeding blogs...")
+        # 4) Create blogs with headings and code snippets
+        self.stdout.write("Seeding blogs with headings and code snippets...")
         blogs = []
         for _ in range(20):
             title = fake.sentence(nb_words=6)
             slug = fake.unique.slug()
+
+            # Generate content with random sections and a code snippet
+            sections = []
+            for i in range(random.randint(2, 4)):
+                # Heading
+                heading = f"<h2>{fake.sentence(nb_words=4)}</h2>"
+                # Paragraph
+                paragraph = f"<p>{fake.paragraph(nb_sentences=3)}</p>"
+                sections.append(heading)
+                sections.append(paragraph)
+            # Add a code snippet
+            code_lines = []
+            for j in range(random.randint(3, 6)):
+                code_lines.append(f"    print('{fake.word()}')")
+            code_block = (
+                '<pre><code class="language-python">\n'
+                + '\n'.join(code_lines)
+                + '\n</code></pre>'
+            )
+            sections.append(code_block)
+            content = "\n".join(sections)
+
             blog = Blog.objects.create(
                 title=title,
                 slug=slug,
                 category=random.choice(categories),
-                content="\n\n".join(fake.paragraphs(nb=5))
+                description=fake.paragraph(nb_sentences=2),
+                content=content
             )
             # assign random filters
             blog.objectives.set(random.sample(objectives, k=2))
@@ -101,7 +124,6 @@ class Command(BaseCommand):
                 name=fake.name(),
                 designation=fake.job(),
                 content=fake.paragraph(nb_sentences=3),
-                # If Testimonial has an image, ensure blank=True or set default
             )
 
-        self.stdout.write(self.style.SUCCESS("✅ Database seeding complete!"))
+        self.stdout.write(self.style.SUCCESS("✅ Database seeding complete with headings & code snippets!"))
