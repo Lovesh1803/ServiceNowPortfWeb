@@ -1,9 +1,5 @@
-{% extends "base.html" %}
-{% load static %}
-
-{% block title %}Testimonials{% endblock %}
-
-{% block extra_css %}
+{% extends "base.html" %} {% load static %} {% block title %}Testimonials{%
+endblock %} {% block extra_css %}
 <style>
   .badge-section,
   .btn-success {
@@ -20,9 +16,7 @@
     padding: 0.375rem 1.5rem;
   }
 </style>
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block content %}
 <section id="testimonials" class="py-5 bg-light">
   <div class="container text-center mb-5">
     <span class="badge badge-section">Testimonials</span>
@@ -42,6 +36,13 @@
               class="rounded-circle me-3"
               style="width: 60px; height: 60px"
             />
+            {% else %}
+            <img
+              src="https://picsum.photos/200/300"
+              class="rounded-circle me-3"
+                      style="width: 60px; height: 60px"
+              alt="No image available"
+            >
             {% endif %}
             <div>
               <h5 class="mb-0">{{ t.name }}</h5>
