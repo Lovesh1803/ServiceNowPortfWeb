@@ -184,8 +184,7 @@
       {% endfor %}
     </div>
     <div class="text-center mt-4">
-      <a href="{% url 'home' %}" class="btn btn-success px-4">Contact Us</a>
-      <a href="{% url 'blog:list' %}" class="btn btn-outline-secondary px-4">View All &gt;</a>
+      <a href="{% url 'blog:list' %}" class="btn px-4">View All &gt;</a>
     </div>
   </div>
 </section>
@@ -202,17 +201,17 @@
       <div class="carousel-inner">
         {% for t in testimonials %}
         <div class="carousel-item {% if forloop.first %}active{% endif %}">
-          <div class="card mx-auto" style="max-width:800px;">
+          <div class="card mx-auto" style="max-width:1000px;">
             <div class="row g-0 align-items-center">
               <div class="col-md-4 text-center p-4">
                 {% if t.image %}
-    <img src="{{ t.image.url }}" class="img-fluid rounded-circle" style="width:200px;height:200px" alt="{{ t.name }}" />
+    <img src="{{ t.image.url }}" class="img-fluid" style="width:400px;height:200px" alt="{{ t.name }}" />
   {% else %}
     <img
       src="https://picsum.photos/200/300"
       class="img-fluid rounded-circle"
       alt="No image available"
-      style="width:200px;height:200px"
+      style="width:400px;height:200px"
     >
   {% endif %}
                 

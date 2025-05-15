@@ -16,26 +16,31 @@
   /* Pattern dots top-right */
   .pattern-dots {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 1rem;
+    right: 1rem;
     width: 400px;
-    opacity: .3;
-    transform: translate(50px, -50px);
+    z-index: 1;
+  }
+
+  .about-panel-cont{
+    position: absolute; left: 2rem; top: 2rem; z-index: 3;
+
   }
 
   /* White text panel (left) with only right corners rounded */
   .about-panel {
     background: #fff;
-    border-top-right-radius: 2rem;
-    border-bottom-right-radius: 2rem;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    padding: 3rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 3rem;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    padding: 6rem 3rem;
   }
 
   /* Ensure image covers the right half */
   #about-hero .col-image {
     padding: 0;
+    z-index: 2;
   }
   #about-hero .col-image img {
     display: block;
@@ -72,9 +77,9 @@
   <img src="{% static 'images/pattern-dots.png' %}" alt="" class="pattern-dots" />
 
   <div class="container">
-    <div class="row g-0 align-items-center">
+    <div class="row g-0 align-items-center" style="justify-content: flex-end;">
       <!-- Text panel -->
-      <div class="col-md-6">
+      <div class="col-md-6 about-panel-cont">
         <div class="about-panel shadow">
           <small class="text-black-50">Welcome to Service Now</small>
           <h2 class="mt-2 text-black">About us</h2>
@@ -108,7 +113,7 @@
 
   <div class="container">
     <div class="card p-4 shadow-sm">
-      <div class="row text-center gy-4">
+      <div class="row text-center gy-5">
         {% for feature in features_list %}
         <div class="col-md-4 feature-col">
           <i class="bi {{ feature.icon }} text-success fs-2 mb-2"></i>
