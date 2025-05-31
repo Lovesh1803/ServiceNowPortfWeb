@@ -93,6 +93,68 @@ FEATURE_LIST = [
     },
 ]
 
+SERVICE_LIST = [
+        {
+            "title": "Service Portal",
+            "description": "Gain hands-on expertise in developing and customizing responsive user interfaces with ServiceNow’s Service Portal. Learn to build dynamic widgets, manage portal themes, and deliver user-centric self-service experiences."
+        },
+        {
+            "title": "Human Resources Service Delivery (HRSD)",
+            "description": "Master the configuration and deployment of HRSD modules, enabling seamless case management, employee service centers, and lifecycle event automation within your enterprise."
+        },
+        {
+            "title": "IT Service Management (ITSM)",
+            "description": "Explore the foundational ITSM processes, including Incident, Problem, Change, and Request Management. Learn best practices aligned with ITIL and configure workflows to optimize IT service delivery."
+        },
+        {
+            "title": "Service Catalog",
+            "description": "Develop and manage scalable service catalogs to streamline service offerings. Learn how to build catalog items, define workflows, and configure access controls to support enterprise-wide requests."
+        },
+        {
+            "title": "Integration (REST, SOAP, APIs)",
+            "description": "Acquire practical knowledge of integrating ServiceNow with third-party systems using REST and SOAP web services. Learn scripted integrations, authentication methods, and testing techniques."
+        },
+        {
+            "title": "Transform Maps & Data Import",
+            "description": "Understand the use of Transform Maps for efficient data migration and transformation. Learn to map import sets to existing tables and automate data normalization processes."
+        },
+        {
+            "title": "JavaScript in ServiceNow",
+            "description": "Enhance your development skills with in-depth JavaScript training tailored to the ServiceNow platform. Learn client and server-side scripting, including Business Rules, Client Scripts, and Script Includes."
+        },
+        {
+            "title": "Flow Designer",
+            "description": "Master the Flow Designer to build automated workflows with minimal coding. Understand trigger-based logic, flow actions, subflows, and orchestration for streamlined process automation."
+        },
+        {
+            "title": "Integration Hub",
+            "description": "Explore IntegrationHub and its pre-built spokes to automate common business tasks. Learn to build reusable integrations and extend Flow Designer capabilities through custom actions."
+        },
+        {
+            "title": "Scoped Application Development",
+            "description": "Gain proficiency in building custom applications in ServiceNow Studio. Learn best practices for table design, data models, module configuration, and publishing applications within scoped environments."
+        },
+        {
+            "title": "Automated Test Framework (ATF)",
+            "description": "Develop, execute, and manage automated tests to validate functionality and minimize regression risks during updates. Learn test planning and best practices for continuous testing."
+        },
+        {
+            "title": "Agile Development 2.0",
+            "description": "Learn to manage software development lifecycles using Agile 2.0. Gain experience in configuring Agile boards, managing epics and user stories, and reporting on sprint progress."
+        },
+        {
+            "title": "CMDB & Discovery",
+            "description": "Understand the principles of Configuration Management and ServiceNow Discovery. Learn to populate the CMDB with accurate data and maintain CI relationships critical to IT operations."
+        },
+        {
+            "title": "Reports & Dashboards",
+            "description": "Build insightful reports and visual dashboards using Performance Analytics. Learn to track KPIs, design real-time analytics, and empower stakeholders with actionable data."
+        },
+        {
+            "title": "IT Operations Management (ITOM)",
+            "description": "Explore ITOM capabilities such as Event Management, Operational Intelligence, and Service Mapping. Learn how to proactively detect, analyze, and resolve IT infrastructure issues."
+        }
+    ]
 
 def about_page(request):
     return render(request, 'core/about.html', {
@@ -100,7 +162,9 @@ def about_page(request):
     })
 
 def services_page(request):
-    return render(request, 'core/services.html')
+    return render(request, 'core/services.html', {
+        'services': SERVICE_LIST
+    })
 
 
 def home_page(request):

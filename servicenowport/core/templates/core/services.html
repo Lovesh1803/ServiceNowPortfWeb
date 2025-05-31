@@ -47,8 +47,7 @@
 
   <div class="container">
     <div class="row row-cols-1 row-cols-md-2 g-4">
-      {% comment %} Repeat this col-block 8 times or loop over a context list 
-      {% endcomment %} {% for i in "12345678" %}
+      {% for feature in features %}
       <div class="col">
         <div class="card feature-card h-100 p-4">
           <div class="d-flex">
@@ -56,11 +55,9 @@
               <i class="bi bi-window-stack"></i>
             </div>
             <div>
-              <h5 class="fw-bold mb-2">Service Portal</h5>
+              <h5 class="fw-bold mb-2">{{ feature.title }}</h5>
               <p class="mb-0 text-muted">
-                Create a mobile-ready interface that lets users tap into key Now
-                Platform capabilities. Service Portal delivers tailored,
-                on-the-go access exactly when they need it.
+                {{ feature.description }}
               </p>
             </div>
           </div>
