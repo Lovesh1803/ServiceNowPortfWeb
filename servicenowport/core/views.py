@@ -10,71 +10,85 @@ User = get_user_model()
 
 ABOUT_FEATURES_LIST = [
     {
-        'icon': 'bi-lightbulb-fill',
-        'title': 'Cutting-Edge Innovation',
-        'desc': 'Experience groundbreaking technological advancements that push the boundaries of what’s possible, revolutionizing industries and transforming the way we live and work.'
+        'icon': ' 🚀',
+        'title': 'Expert-Led Training',
+        'desc': 'Learn from certified ServiceNow professionals with real-world experience. Our instructors bring deep platform knowledge and industry insight to every lesson.'
     },
     {
-        'icon': 'bi-wifi',
-        'title': 'Seamless Connectivity',
-        'desc': 'Stay connected anytime, anywhere with our robust and reliable network infrastructure, ensuring uninterrupted communication and effortless access to the digital world.'
+        'icon': '🎓',
+        'title': 'Career-Focused Curriculum',
+        'desc': 'We go beyond theory. Our curriculum is designed to prepare you for ServiceNow certifications and real job roles in ITSM, ITOM, HRSD, and more.'
     },
     {
-        'icon': 'bi-ui-checks-grid',
-        'title': 'Intuitive User Interface',
-        'desc': 'Enjoy a seamless and intuitive user experience with our sleek and user-friendly interface, designed to simplify complex tasks and enhance productivity.'
+        'icon': '🛠️',
+        'title': 'Hands-On Labs & Projects',
+        'desc': 'Practice what you learn in live environments. Our platform provides sandbox access, real use cases, and step-by-step labs to help you build confidence and skills.'
     },
     {
-        'icon': 'bi-people-fill',
-        'title': 'Seamless Collaboration Tools',
-        'desc': 'Gain valuable insights and make data-driven decisions with advanced analytics tools, fostering teamwork and boosting efficiency across your organization.'
+        'icon': '🌐',
+        'title': 'Anywhere, Anytime Learning',
+        'desc': 'Our flexible learning model supports your schedule. Access content online 24/7 from any device—learn at your pace, from anywhere in the world.'
     },
     {
-        'icon': 'bi-cloud-fill',
-        'title': 'Scalable Cloud Infrastructure',
-        'desc': 'Streamline communication and foster teamwork with efficient collaboration tools, built on a secure and scalable cloud platform.'
+        'icon': '💼',
+        'title': 'Job-Ready Support',
+        'desc': 'We offer resume building, interview prep, and job placement assistance to help you land your first or next ServiceNow role.'
     },
     {
-        'icon': 'bi-bar-chart-fill',
-        'title': 'Intelligent Data Analytics',
-        'desc': 'Scale effortlessly with reliable and flexible data solutions that turn raw information into actionable business intelligence.'
+        'icon': '🧭',
+        'title': 'Guided Certification Path',
+        'desc': 'From beginner to advanced, we provide a clear roadmap to help you pass CSA, CAD, CIS, and other ServiceNow certifications with confidence.'
     },
 ]
 
 
 FEATURE_LIST = [
     {
-        'title': 'ITSM & ITSM Licensing',
+        'title': 'ITSM',
         'description': (
-            'IT Service Management (ITSM) is all about delivering value-driven IT services '
-            'that put the customer first. Rather than centering on hardware or systems, ITSM '
-            'focuses on the complete service lifecycle and continuous improvement. Think of it '
-            'as running IT “as a service”—covering every process, tool, and workflow your team '
-            'relies on to plan, deliver, support, and refine technology across the organization.'
+            'ServiceNow ITSM (IT Service Management) describes the management of end-to-end IT service delivery to meet business goals, including the creation, delivery, and support of IT services. ITSM is the discipline of designing, delivering, managing, and improving the IT services an organization provides to its users. Key Modules of ITSM are Incident Management, Problem Management, Change Management, Knowledge Management, Request Management.'
         ),
         'image': 'images/feature_one.png',
         'link': '#',  # replace with your real URL
     },
     {
-        'title': 'ITBM & Its Key Modules',
+        'title': 'ITOM',
         'description': (
-            'IT Business Management (ITBM) equips leaders to forecast demand, assign resources smartly, '
-            'and measure portfolio ROI. With ITBM you can rank incoming initiatives by business impact, '
-            'keep budgets on track, and accelerate product delivery through streamlined workflows such as '
-            'Project Portfolio Management, Demand Management, Agile Development, and more.'
+            'ServiceNow ITOM (IT Operations Management) is designed to help IT teams gain visibility, control, and automation across their infrastructure and services. ITOM focuses on the health and performance of the infrastructure that supports those services. IT Operations Management (ITOM) includes the tools and processes needed to monitor infrastructure and applications, ensure service availability and performance, automatically discover and map assets, Resolve issues proactively. Key Modules of ITOM are Discovery, Service Mapping, Event Management, Health Log Analytics, Cloud Management, Orchestration and Automation.'
         ),
         'image': 'images/feature_two.png',
         'link': '#',
     },
     {
-        'title': 'ITOM Explained',
+        'title': 'ITAM',
         'description': (
-            'IT Operations Management (ITOM) is the strategic practice of designing, deploying, and running '
-            'the tech foundations that power digital services. ServiceNow’s ITOM capabilities automate asset '
-            'discovery, map service dependencies, enforce compliance, and consolidate event data—giving ops '
-            'teams the real-time insight they need to keep everything humming.'
+            "ServiceNow ITAM (IT Asset Management) is a suite of tools that help organizations manage the lifecycle of their IT assets in an efficient way. It's tightly integrated with ITSM and ITOM to improve visibility, reduce costs, and ensure compliance. IT Asset Management (ITAM) is the process of tracking and managing the hardware, software, and other technological assets within an organization. Key Modules of ITAM are Hardware Asset Management (HAM), Software Asset Management (SAM), Cloud Insights (part of SAM Pro), Enterprise Asset Management (EAM)."
         ),
         'image': 'images/feature_third.png',
+        'link': '#',
+    },
+    {
+        'title': 'ITBM',
+        'description': (
+            "ServiceNow ITBM (IT Business Management) is referred to as Strategic Portfolio Management (SPM) helps organizations align their IT efforts with business goals by managing projects, portfolios, resources, and finances. IT Business Management (ITBM) helps organizations plan and prioritize work, manage demand and projects, track costs and resources, align IT investments with strategic objectives. Key Modules of ITBM are Project Portfolio Management (PPM), Demand Management, Resource Management, Financial Planning, Innovation Management, Agile Development."
+        ),
+        'image': 'images/feature_forth.png',
+        'link': '#',
+    },
+    {
+        'title': 'IRM/GRC',
+        'description': (
+            "ServiceNow IRM (Integrated Risk Management) also known as GRC (Governance, Risk, and Compliance) is a suite that helps organizations manage risks, meet compliance requirements, and make informed decisions to stay resilient. IRM/GRC is all about understanding, assessing, and responding to risks and compliance obligations across the organization. Key Modules of IRM/GRC are Policy and Compliance Management, Risk Management, Audit Management, Vendor Risk Management (VRM), Business Continuity Management (BCM), Operational Risk Management."
+        ),
+        'image': 'images/feature_fifth.png',
+        'link': '#',
+    },
+    {
+        'title': 'HRSD',
+        'description': (
+            "ServiceNow HRSD (Human Resources Service Delivery) is a module designed to modernize and streamline HR services through digital workflows making it easier for employees to access HR support and for HR teams to manage requests, tasks, and cases efficiently. HRSD helps HR teams, deliver consistent and personalized employee services, automate manual HR processes, Improve employee experience through self-service and case management. Key Modules of HRSD are Employee Center, Case and Knowledge Management, HR Services Catalog, Lifecycle Events, Employee Document Management, Mobile Access. "
+        ),
+        'image': 'images/feature_sixth.png',
         'link': '#',
     },
 ]

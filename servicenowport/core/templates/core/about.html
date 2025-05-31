@@ -81,14 +81,13 @@
       <!-- Text panel -->
       <div class="col-md-6 about-panel-cont">
         <div class="about-panel shadow">
-          <small class="text-black-50">Welcome to Service Now</small>
+          <small class="text-black-50">Welcome to RiseUpSnow</small>
           <h2 class="mt-2 text-black">About us</h2>
           <p class="text-white-75">
-            We’re dedicated to providing top-notch IT training, helping professionals and enthusiasts alike enhance their skills in ServiceNow, .NET, Salesforce, and WordPress.
+            We are dedicated to deliver high-quality ServiceNow education and career development opportunities with the goal of building long-term professional growth in the IT sector especially in ServiceNow.
           </p>
           <p class="mb-0 text-white-75">
-            <strong>Our Mission:</strong><br>
-            Deliver accessible, high-quality training that bridges the gap between learning and real-world application.
+            Our approach combines hands-on workshops with online learning, ensuring accessibility and flexibility for all participants. To deliver accessible, high-quality training that bridges the gap between learning and real-world applications.
           </p>
         </div>
       </div>
@@ -116,7 +115,7 @@
       <div class="row text-center gy-5">
         {% for feature in features_list %}
         <div class="col-md-4 feature-col">
-          <i class="bi {{ feature.icon }} text-success fs-2 mb-2"></i>
+          <span class="text-success fs-1 mb-4">{{ feature.icon }}</span>
           <h5>{{ feature.title }}</h5>
           <p class="text-muted small">{{ feature.desc }}</p>
         </div>

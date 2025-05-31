@@ -2,14 +2,6 @@ from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
 
-class Objective(models.Model):
-    name = models.CharField(max_length=100)
-    def __str__(self): return self.name
-
-class Product(models.Model):
-    name = models.CharField(max_length=100)
-    def __str__(self): return self.name
-
 class Level(models.Model):
     name = models.CharField(max_length=100)
     def __str__(self): return self.name
@@ -18,29 +10,42 @@ class Role(models.Model):
     name = models.CharField(max_length=100)
     def __str__(self): return self.name
 
-class Skill(models.Model):
+class ChallengeType(models.Model):
+    name = models.CharField(max_length=100)
+    def __str__(self): return self.name
+
+class CertificationPractice(models.Model):
+    name = models.CharField(max_length=100)
+    def __str__(self): return self.name
+
+class ContentType(models.Model):
+    name = models.CharField(max_length=100)
+    def __str__(self): return self.name
+
+class Status(models.Model):
     name = models.CharField(max_length=100)
     def __str__(self): return self.name
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    def __str__(self): return self.name
 
-    def __str__(self):
-        return self.name
-    
 class Blog(models.Model):
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True, blank=True)
+    title       = models.CharField(max_length=200)
+    slug        = models.SlugField(unique=True, blank=True)
     description = models.TextField()
     category    = models.ForeignKey(Category, related_name='blogs', on_delete=models.PROTECT)
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    content     = models.TextField()
+    created_at  = models.DateTimeField(auto_now_add=True)
     updated_at  = models.DateTimeField(auto_now=True)
-    objectives = models.ManyToManyField(Objective, blank=True)
-    products = models.ManyToManyField(Product, blank=True)
-    levels = models.ManyToManyField(Level, blank=True)
-    roles = models.ManyToManyField(Role, blank=True)
-    skills = models.ManyToManyField(Skill, blank=True)
+
+    levels      = models.ManyToManyField(Level, blank=True)
+    roles       = models.ManyToManyField(Role, blank=True)
+    challenge_types = models.ManyToManyField(ChallengeType, blank=True)
+    certification_practices = models.ManyToManyField(CertificationPractice, blank=True)
+    content_types = models.ManyToManyField(ContentType, blank=True)
+    statuses = models.ManyToManyField(Status, blank=True)
+
     image = models.ImageField(
         upload_to='blogs/',
         blank=True, null=True,
@@ -64,7 +69,7 @@ class Blog(models.Model):
 class Comment(models.Model):
     blog       = models.ForeignKey(Blog, related_name='comments', on_delete=models.CASCADE)
     name       = models.CharField(max_length=100)
-    email      = models.EmailField(null=True, blank=True)              
+    email      = models.EmailField(null=True, blank=True)
     comment    = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 

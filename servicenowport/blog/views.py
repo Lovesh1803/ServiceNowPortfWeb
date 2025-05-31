@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Blog, Objective, Product, Level, Role, Skill, Comment
+from .models import Blog, Level, Role, ChallengeType, CertificationPractice, ContentType, Status
 from .forms import CommentForm
 from django.contrib import messages
 from django.urls import reverse
@@ -12,35 +12,40 @@ def blog_list(request):
     blogs = Blog.objects.all()
 
     # Get raw lists from GET
-    raw_objectives = request.GET.getlist('objective')
-    raw_products   = request.GET.getlist('product')
-    raw_levels     = request.GET.getlist('level')
-    raw_roles      = request.GET.getlist('role')
-    raw_skills     = request.GET.getlist('skill')
+    raw_levels       = request.GET.getlist('level')
+    raw_roles        = request.GET.getlist('role')
+    raw_challenges   = request.GET.getlist('challenge_type')
+    raw_cert_prac    = request.GET.getlist('certification_practice')
+    raw_content_types = request.GET.getlist('content_type')
+    raw_statuses      = request.GET.getlist('status')
 
-    # Clean them: only keep strings that are all digits
-    selected_objectives = [v for v in raw_objectives if v.isdigit()]
-    selected_products   = [v for v in raw_products   if v.isdigit()]
-    selected_levels     = [v for v in raw_levels     if v.isdigit()]
-    selected_roles      = [v for v in raw_roles      if v.isdigit()]
-    selected_skills     = [v for v in raw_skills     if v.isdigit()]
 
-    # apply filters only if user selected something
-    if selected_objectives:
-        blogs = blogs.filter(objectives__id__in=selected_objectives)
-    if selected_products:
-        blogs = blogs.filter(products__id__in=selected_products)
+    # Clean them
+    selected_levels       = [v for v in raw_levels if v.isdigit()]
+    selected_roles        = [v for v in raw_roles if v.isdigit()]
+    selected_challenges   = [v for v in raw_challenges if v.isdigit()]
+    selected_cert_prac    = [v for v in raw_cert_prac if v.isdigit()]
+    selected_content_types = [v for v in raw_content_types if v.isdigit()]
+    selected_statuses      = [v for v in raw_statuses if v.isdigit()]
+
+    # Apply filters
     if selected_levels:
         blogs = blogs.filter(levels__id__in=selected_levels)
     if selected_roles:
         blogs = blogs.filter(roles__id__in=selected_roles)
-    if selected_skills:
-        blogs = blogs.filter(skills__id__in=selected_skills)
+    if selected_challenges:
+        blogs = blogs.filter(challenge_types__id__in=selected_challenges)
+    if selected_cert_prac:
+        blogs = blogs.filter(certification_practices__id__in=selected_cert_prac)
+    if selected_content_types:
+        blogs = blogs.filter(content_types__id__in=selected_content_types)
+    if selected_statuses:
+        blogs = blogs.filter(statuses__id__in=selected_statuses)
 
     blogs = blogs.distinct()
 
+    # Pagination logic
     per_page = 6
-    # Safely parse page parameter
     page_param = request.GET.get('page', '1')
     try:
         page = int(page_param)
@@ -49,31 +54,30 @@ def blog_list(request):
     except ValueError:
         page = 1
 
-    # Calculate how many items to show
     limit = per_page * page
-
-    limit_blogs     = blogs[:limit]
-
+    limit_blogs = blogs[:limit]
     total_blogs = blogs.count()
-
-    has_next    = total_blogs > limit
+    has_next = total_blogs > limit
     next_page = page + 1
 
     return render(request, 'blog/blog_list.html', {
         'blogs': limit_blogs,
         'has_next': has_next,
         'next_page': next_page,
-        'objectives': Objective.objects.all(),
-        'products':   Product.objects.all(),
-        'levels':     Level.objects.all(),
-        'roles':      Role.objects.all(),
-        'skills':     Skill.objects.all(),
-        # pass the raw selected lists for template checks
-        'selected_objectives': selected_objectives,
-        'selected_products':   selected_products,
-        'selected_levels':     selected_levels,
-        'selected_roles':      selected_roles,
-        'selected_skills':     selected_skills,
+        'levels': Level.objects.all(),
+        'roles': Role.objects.all(),
+        'challenge_types': ChallengeType.objects.all(),
+        'certification_practices': CertificationPractice.objects.all(),
+        'content_types': ContentType.objects.all(),
+        'statuses': Status.objects.all(),
+
+        # selected filter ids for template rendering
+        'selected_levels': selected_levels,
+        'selected_roles': selected_roles,
+        'selected_challenges': selected_challenges,
+        'selected_cert_prac': selected_cert_prac,
+        'selected_content_types': selected_content_types,
+        'selected_statuses': selected_statuses,
     })
 
 def blog_detail(request, slug):

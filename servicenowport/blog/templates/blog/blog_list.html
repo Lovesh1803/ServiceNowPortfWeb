@@ -56,61 +56,95 @@
   <div class="container">
     <div class="row gx-4">
       <!-- Filters Sidebar -->
-      <aside class="col-lg-3 mb-4">
-        <form method="get" class="filter-panel">
-        <div class="filter-panel">
-          <div class="d-flex justify-content-between align-items-center">
-            <h4>Filters</h4>
-            <a href="{% url 'blog:list' %}" class="clear-filters text-success">Clear</a>
-          </div>
+<aside class="col-lg-3 mb-4">
+  <form method="get" class="filter-panel">
+    <div class="filter-panel">
+      <div class="d-flex justify-content-between align-items-center">
+        <h4>Filters</h4>
+        <a href="{% url 'blog:list' %}" class="clear-filters text-success">Clear</a>
+      </div>
 
-          <!-- Objective dropdown -->
-          <div class="filter-group mt-3">
-            <label for="filterObjective">Objective</label>
-            <select
-              id="filterObjective"
-              name="objective"
-              class="form-select"
-              onchange="this.form.submit()"
-            >
-              <option value="">Select</option>
-              {% for obj in objectives %}
-                <option
-                  value="{{ obj.id }}"
-                  {% if obj.id|stringformat:"s" in selected_objectives %}selected{% endif %}
-                >
-                  {{ obj.name }}
-                </option>
-              {% endfor %}
-            </select>
-          </div>
+      <!-- Level filter -->
+      <div class="filter-group mt-3">
+        <label for="filterLevel">Level</label>
+        <select id="filterLevel" name="level" class="form-select" onchange="this.form.submit()">
+          <option value="">Select</option>
+          {% for level in levels %}
+            <option value="{{ level.id }}" {% if level.id|stringformat:"s" in selected_levels %}selected{% endif %}>
+              {{ level.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
 
+      <!-- Role filter -->
+      <div class="filter-group mt-3">
+        <label for="filterRole">Role</label>
+        <select id="filterRole" name="role" class="form-select" onchange="this.form.submit()">
+          <option value="">Select</option>
+          {% for role in roles %}
+            <option value="{{ role.id }}" {% if role.id|stringformat:"s" in selected_roles %}selected{% endif %}>
+              {{ role.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
 
-          <!-- Skills select -->
-          <div class="filter-group mt-3">
-            <label for="filterSkill">Skills</label>
-            <select
-              id="filterSkill"
-              name="skill"
-              class="form-select"
-              onchange="this.form.submit()"
-            >
-              <option value="">Select</option>
-              {% for skill in skills %}
-                <option
-                  value="{{ skill.id }}"
-                  {% if skill.id|stringformat:"s" in selected_skills %}selected{% endif %}
-                >
-                  {{ skill.name }}
-                </option>
-              {% endfor %}
-            </select>
+      <!-- Challenge Type filter -->
+      <div class="filter-group mt-3">
+        <label for="filterChallenge">Challenge Type</label>
+        <select id="filterChallenge" name="challenge_type" class="form-select" onchange="this.form.submit()">
+          <option value="">Select</option>
+          {% for challenge in challenge_types %}
+            <option value="{{ challenge.id }}" {% if challenge.id|stringformat:"s" in selected_challenges %}selected{% endif %}>
+              {{ challenge.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
 
-          </div>
+      <!-- Certification Practice filter -->
+      <div class="filter-group mt-3">
+        <label for="filterCert">Certification Practice</label>
+        <select id="filterCert" name="certification_practice" class="form-select" onchange="this.form.submit()">
+          <option value="">Select</option>
+          {% for cert in certification_practices %}
+            <option value="{{ cert.id }}" {% if cert.id|stringformat:"s" in selected_cert_prac %}selected{% endif %}>
+              {{ cert.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
 
-        </div>
-        </form>
-      </aside>
+      <!-- Content Type filter -->
+<div class="filter-group mt-3">
+  <label for="filterContentType">Content Type</label>
+  <select id="filterContentType" name="content_type" class="form-select" onchange="this.form.submit()">
+    <option value="">Select</option>
+    {% for ct in content_types %}
+      <option value="{{ ct.id }}" {% if ct.id|stringformat:"s" in selected_content_types %}selected{% endif %}>
+        {{ ct.name }}
+      </option>
+    {% endfor %}
+  </select>
+</div>
+
+<!-- Status filter -->
+<div class="filter-group mt-3">
+  <label for="filterStatus">Status</label>
+  <select id="filterStatus" name="status" class="form-select" onchange="this.form.submit()">
+    <option value="">Select</option>
+    {% for status in statuses %}
+      <option value="{{ status.id }}" {% if status.id|stringformat:"s" in selected_statuses %}selected{% endif %}>
+        {{ status.name }}
+      </option>
+    {% endfor %}
+  </select>
+</div>
+    </div>
+  </form>
+</aside>
+
 
       <!-- Main Content -->
       <main class="col-lg-9">
